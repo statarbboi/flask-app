@@ -20,62 +20,17 @@ CARD_TEMPLATE = """
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f7f7f7;
-            position: relative;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7, #ff758c);
+            background-size: 400% 400%;
+            animation: gradientAnimation 6s infinite;
         }
 
-        /* Moving desert background */
-        .background {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 100px;
-            background: linear-gradient(to right, #ddd 30%, #bbb 70%);
-            animation: moveBackground 3s linear infinite;
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @keyframes moveBackground {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-
-        /* Dinosaur character */
-        .dino {
-            position: absolute;
-            bottom: 100px;
-            left: 100px;
-            width: 50px;
-            height: 50px;
-            background-color: black;
-            border-radius: 5px;
-            animation: dinoRun 0.2s steps(2) infinite;
-        }
-
-        @keyframes dinoRun {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-
-        /* Cactus obstacles */
-        .cactus {
-            position: absolute;
-            bottom: 100px;
-            left: 80%;
-            width: 20px;
-            height: 50px;
-            background-color: green;
-            border-radius: 3px;
-            animation: moveCactus 3s linear infinite;
-        }
-
-        @keyframes moveCactus {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
-
-        /* Card in the center */
         .card {
             z-index: 10;
             background-color: rgba(255, 255, 255, 0.9);
@@ -91,23 +46,31 @@ CARD_TEMPLATE = """
             font-size: 2.5rem;
             color: #ff69b4;
             margin-bottom: 20px;
-            animation: bubbleText 4s infinite;
-            font-weight: bold;
         }
 
-        @keyframes bubbleText {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.7;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        .typewriter {
+            font-size: 1.8rem;
+            color: #ff69b4;
+            font-weight: bold;
+            border-right: 2px solid #ff69b4;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(30, end), blink 0.5s step-end infinite alternate, erase 2s 4s steps(30, end) infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        @keyframes erase {
+            from { width: 100%; }
+            to { width: 0; }
         }
 
         img {
@@ -120,11 +83,9 @@ CARD_TEMPLATE = """
     </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="dino"></div>
-    <div class="cactus"></div>
     <div class="card">
-        <h1>Get better soon Shiho!!</h1>
+        <h1>Get Well Soon Card</h1>
+        <div class="typewriter">I hope you feel better soon Shiho!!!!!</div>
         <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
     </div>
 </body>
