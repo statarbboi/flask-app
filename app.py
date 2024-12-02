@@ -38,18 +38,28 @@ CARD_TEMPLATE = """
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             padding: 20px;
             text-align: center;
-            max-width: 500px;
+            max-width: 600px;
             position: relative;
         }
 
         .bubbly-text {
             font-size: 2.5rem;
-            color: #ff69b4;
+            text-align: center;
             margin-bottom: 20px;
-            animation: bubbleBounce 3s infinite;
+            animation: colorChange 4s infinite, bubbleBounce 3s infinite;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px #ffb6c1, 0 0 20px #ff69b4;
         }
 
+        /* Change color for the entire message */
+        @keyframes colorChange {
+            0% { color: #ff69b4; }
+            25% { color: #ffa500; }
+            50% { color: #1e90ff; }
+            75% { color: #32cd32; }
+            100% { color: #ff69b4; }
+        }
+
+        /* Add bubbly bounce effect */
         @keyframes bubbleBounce {
             0%, 100% {
                 transform: scale(1);
@@ -70,7 +80,7 @@ CARD_TEMPLATE = """
 </head>
 <body>
     <div class="card">
-        <div class="bubbly-text">I hope you feel better soon Shiho!!!!!</div>
+        <div class="bubbly-text">Feel better soon Shiho!</div>
         <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
     </div>
 </body>
