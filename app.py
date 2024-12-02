@@ -78,78 +78,117 @@ CARD_TEMPLATE = """
         }
 
         /* Turtle Styles */
-        .turtle {
+        .turtle-container {
             position: absolute;
             bottom: 10px;
-            left: -100px;
-            width: 80px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100px;
+            height: 100px;
             animation: moveTurtle 10s linear infinite;
         }
 
         @keyframes moveTurtle {
             0% {
-                left: -100px;
-                transform: scaleX(1); /* Face right */
+                transform: translateX(-100px) scaleX(1);
             }
             50% {
-                left: 100vw;
-                transform: scaleX(1); /* Face right */
+                transform: translateX(100vw) scaleX(1);
             }
             51% {
-                transform: scaleX(-1); /* Face left */
+                transform: translateX(100vw) scaleX(-1); /* Flip horizontally */
             }
             100% {
-                left: -100px;
-                transform: scaleX(-1); /* Face left */
+                transform: translateX(-100px) scaleX(-1);
             }
         }
 
-        .shell {
-            background: #388e3c;
-            width: 50px;
-            height: 35px;
-            border-radius: 50%;
+        .turtle {
             position: relative;
+            width: 100px;
+            height: 80px;
+        }
+
+        /* Head */
+        .head {
+            position: absolute;
+            top: 20px;
+            left: -20px;
+            width: 30px;
+            height: 30px;
+            background: #a8d08d;
+            border-radius: 50%;
+        }
+
+        .head::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            width: 6px;
+            height: 6px;
+            background: black;
+            border-radius: 50%;
+        }
+
+        .head::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 8px;
+            width: 14px;
+            height: 5px;
+            background: black;
+            border-radius: 50%;
+        }
+
+        /* Shell */
+        .shell {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 60px;
+            height: 50px;
+            background: #388e3c;
+            border-radius: 50%;
         }
 
         .shell::before {
             content: '';
-            background: #4caf50;
+            position: absolute;
+            top: 15px;
+            left: 10px;
             width: 40px;
             height: 20px;
+            background: #4caf50;
             border-radius: 50%;
-            position: absolute;
-            top: 10px;
-            left: 5px;
         }
 
-        .head, .leg {
-            background: #6d4c41;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .head {
-            top: 5px;
-            left: -15px;
-        }
-
+        /* Legs */
         .leg {
-            bottom: -10px;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #a8d08d;
+            border-radius: 50%;
         }
 
-        .leg.front {
-            left: -10px;
+        .leg.front-left {
+            top: 15px;
+            left: 10px;
         }
 
-        .leg.back {
-            right: -10px;
+        .leg.front-right {
+            top: 15px;
+            right: 10px;
+        }
+
+        .leg.back-left {
+            bottom: 5px;
+            left: 10px;
+        }
+
+        .leg.back-right {
+            bottom: 5px;
+            right: 10px;
         }
     </style>
 </head>
@@ -158,12 +197,16 @@ CARD_TEMPLATE = """
         <div class="bubbly-text">Feel better soon Shiho!</div>
         <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
     </div>
-    <!-- Turtle created with code -->
-    <div class="turtle">
-        <div class="shell"></div>
-        <div class="head"></div>
-        <div class="leg front"></div>
-        <div class="leg back"></div>
+    <!-- Turtle -->
+    <div class="turtle-container">
+        <div class="turtle">
+            <div class="head"></div>
+            <div class="shell"></div>
+            <div class="leg front-left"></div>
+            <div class="leg front-right"></div>
+            <div class="leg back-left"></div>
+            <div class="leg back-right"></div>
+        </div>
     </div>
 </body>
 </html>
