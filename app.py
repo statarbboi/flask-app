@@ -78,45 +78,62 @@ CARD_TEMPLATE = """
         /* Turtle Animation */
         .turtle-container {
             position: absolute;
-            bottom: 50px;
+            bottom: 10px;
             width: 100px;
             height: 100px;
-            animation: moveTurtle 6s infinite alternate;
+            animation: moveTurtle 10s linear infinite;
         }
 
         @keyframes moveTurtle {
             0% {
-                transform: translateX(0); /* Start on the left */
+                transform: translateX(-100px) scaleX(1); /* Moving left to right */
+            }
+            50% {
+                transform: translateX(100vw) scaleX(1);
+            }
+            51% {
+                transform: translateX(100vw) scaleX(-1); /* Flipping direction */
             }
             100% {
-                transform: translateX(calc(100vw - 100px)); /* Stop at the right edge */
+                transform: translateX(-100px) scaleX(-1);
             }
         }
 
-        /* Turtle Design - Side View */
+        /* Turtle Design - Top View */
         .turtle {
             position: relative;
             width: 100px;
-            height: 70px;
+            height: 100px;
         }
 
         /* Shell */
         .shell {
             background: #388e3c;
             border-radius: 50%;
-            width: 70px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             position: absolute;
             top: 10px;
-            left: 20px;
+            left: 10px;
             box-shadow: inset 0 0 5px #2e7d32;
+        }
+
+        .shell::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 50px;
+            height: 50px;
+            background: #4caf50;
+            border-radius: 50%;
         }
 
         .shell-markings {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 50px;
+            top: 25px;
+            left: 25px;
+            width: 30px;
             height: 30px;
             background: transparent;
             border: 3px solid black;
@@ -126,8 +143,8 @@ CARD_TEMPLATE = """
         /* Head */
         .head {
             position: absolute;
-            top: 15px;
-            left: -20px;
+            top: -20px;
+            left: 35px;
             width: 30px;
             height: 30px;
             background: #a8d08d;
@@ -137,8 +154,8 @@ CARD_TEMPLATE = """
         .head::before {
             content: '';
             position: absolute;
-            top: 8px;
-            left: 5px;
+            top: 6px;
+            left: 10px;
             width: 5px;
             height: 5px;
             background: black;
@@ -148,8 +165,8 @@ CARD_TEMPLATE = """
         .head::after {
             content: '';
             position: absolute;
-            top: 8px;
-            left: 15px;
+            top: 6px;
+            left: 18px;
             width: 5px;
             height: 5px;
             background: black;
@@ -159,37 +176,37 @@ CARD_TEMPLATE = """
         /* Legs */
         .leg {
             position: absolute;
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
             background: #a8d08d;
             border-radius: 50%;
         }
 
         .leg.front-left {
-            top: 10px;
-            left: 20px;
+            top: 20px;
+            left: 5px;
         }
 
         .leg.front-right {
-            top: 10px;
-            left: 55px;
+            top: 20px;
+            right: 5px;
         }
 
         .leg.back-left {
-            bottom: 10px;
-            left: 20px;
+            bottom: 5px;
+            left: 10px;
         }
 
         .leg.back-right {
-            bottom: 10px;
-            left: 55px;
+            bottom: 5px;
+            right: 10px;
         }
 
         /* Tail */
         .tail {
             position: absolute;
-            bottom: 5px;
-            right: 10px;
+            bottom: 0;
+            right: 30px;
             width: 10px;
             height: 10px;
             background: #a8d08d;
@@ -225,3 +242,4 @@ def card():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
