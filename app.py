@@ -78,62 +78,45 @@ CARD_TEMPLATE = """
         /* Turtle Animation */
         .turtle-container {
             position: absolute;
-            bottom: 10px;
+            bottom: 50px;
             width: 100px;
             height: 100px;
-            animation: moveTurtle 10s linear infinite;
+            animation: moveTurtle 6s infinite alternate;
         }
 
         @keyframes moveTurtle {
             0% {
-                transform: translateX(-100px) scaleX(1); /* Moving left to right */
-            }
-            50% {
-                transform: translateX(100vw) scaleX(1);
-            }
-            51% {
-                transform: translateX(100vw) scaleX(-1); /* Flipping direction */
+                transform: translateX(0); /* Start on the left */
             }
             100% {
-                transform: translateX(-100px) scaleX(-1);
+                transform: translateX(calc(100vw - 100px)); /* Stop at the right edge */
             }
         }
 
-        /* Turtle Design - Top View */
+        /* Turtle Design - Side View */
         .turtle {
             position: relative;
             width: 100px;
-            height: 100px;
+            height: 70px;
         }
 
         /* Shell */
         .shell {
             background: #388e3c;
             border-radius: 50%;
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 50px;
             position: absolute;
             top: 10px;
-            left: 10px;
+            left: 20px;
             box-shadow: inset 0 0 5px #2e7d32;
-        }
-
-        .shell::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 50px;
-            height: 50px;
-            background: #4caf50;
-            border-radius: 50%;
         }
 
         .shell-markings {
             position: absolute;
-            top: 25px;
-            left: 25px;
-            width: 30px;
+            top: 10px;
+            left: 10px;
+            width: 50px;
             height: 30px;
             background: transparent;
             border: 3px solid black;
@@ -143,8 +126,8 @@ CARD_TEMPLATE = """
         /* Head */
         .head {
             position: absolute;
-            top: -20px;
-            left: 35px;
+            top: 15px;
+            left: -20px;
             width: 30px;
             height: 30px;
             background: #a8d08d;
@@ -154,8 +137,8 @@ CARD_TEMPLATE = """
         .head::before {
             content: '';
             position: absolute;
-            top: 6px;
-            left: 10px;
+            top: 8px;
+            left: 5px;
             width: 5px;
             height: 5px;
             background: black;
@@ -165,8 +148,8 @@ CARD_TEMPLATE = """
         .head::after {
             content: '';
             position: absolute;
-            top: 6px;
-            left: 18px;
+            top: 8px;
+            left: 15px;
             width: 5px;
             height: 5px;
             background: black;
@@ -176,37 +159,37 @@ CARD_TEMPLATE = """
         /* Legs */
         .leg {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             background: #a8d08d;
             border-radius: 50%;
         }
 
         .leg.front-left {
-            top: 20px;
-            left: 5px;
+            top: 10px;
+            left: 20px;
         }
 
         .leg.front-right {
-            top: 20px;
-            right: 5px;
+            top: 10px;
+            left: 55px;
         }
 
         .leg.back-left {
-            bottom: 5px;
-            left: 10px;
+            bottom: 10px;
+            left: 20px;
         }
 
         .leg.back-right {
-            bottom: 5px;
-            right: 10px;
+            bottom: 10px;
+            left: 55px;
         }
 
         /* Tail */
         .tail {
             position: absolute;
-            bottom: 0;
-            right: 30px;
+            bottom: 5px;
+            right: 10px;
             width: 10px;
             height: 10px;
             background: #a8d08d;
