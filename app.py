@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -12,18 +12,20 @@ CARD_TEMPLATE = """
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #fbc2eb 100%);
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7, #ff758c);
+            background-size: 400% 400%;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            animation: backgroundAnimation 5s infinite alternate;
+            animation: gradientAnimation 6s infinite;
         }
 
-        @keyframes backgroundAnimation {
-            0% { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
-            100% { background: linear-gradient(135deg, #fbc2eb, #a18cd1); }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .card {
@@ -33,26 +35,30 @@ CARD_TEMPLATE = """
             padding: 20px;
             text-align: center;
             max-width: 500px;
-            animation: cardBounce 3s infinite;
-        }
-
-        @keyframes cardBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         h1 {
             font-size: 2.5rem;
-            color: #1e90ff;
+            color: #ff69b4;
             margin-bottom: 20px;
-            animation: textGlow 2s infinite alternate;
-            text-shadow: 0 0 10px #87ceeb, 0 0 20px #87ceeb, 0 0 30px #1e90ff;
+            animation: bubbleText 4s infinite;
             font-weight: bold;
+            opacity: 0;
         }
 
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 10px #87ceeb; }
-            100% { text-shadow: 0 0 30px #1e90ff; }
+        @keyframes bubbleText {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         p {
@@ -71,7 +77,7 @@ CARD_TEMPLATE = """
 </head>
 <body>
     <div class="card">
-        <h1>Hey Shiho, I hope you feel better soon!</h1>
+        <h1>Get better soon Shiho!!</h1>
         <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
     </div>
 </body>
@@ -79,15 +85,8 @@ CARD_TEMPLATE = """
 """
 
 @app.route('/')
-def home():
-    return """
-    <h1>Welcome to the Get Well Soon Card Generator</h1>
-    <a href="/card/Shiho">Click here to generate a cute card for Shiho</a>
-    """
-
-@app.route('/card/<name>')
-def card(name):
-    return render_template_string(CARD_TEMPLATE.replace("Shiho", name))
+def card():
+    return CARD_TEMPLATE
 
 if __name__ == '__main__':
     app.run(debug=True)
