@@ -50,7 +50,6 @@ CARD_TEMPLATE = """
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px #ffb6c1, 0 0 20px #ff69b4;
         }
 
-        /* Change color for the entire message */
         @keyframes colorChange {
             0% { color: #ff69b4; }
             25% { color: #ffa500; }
@@ -59,7 +58,6 @@ CARD_TEMPLATE = """
             100% { color: #ff69b4; }
         }
 
-        /* Add bubbly bounce effect */
         @keyframes bubbleBounce {
             0%, 100% {
                 transform: scale(1);
@@ -77,7 +75,7 @@ CARD_TEMPLATE = """
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Turtle Styles */
+        /* Turtle Animation */
         .turtle-container {
             position: absolute;
             bottom: 10px;
@@ -94,71 +92,62 @@ CARD_TEMPLATE = """
                 transform: translateX(100vw) scaleX(1);
             }
             51% {
-                transform: translateX(100vw) scaleX(-1); /* Flip horizontally */
+                transform: translateX(100vw) scaleX(-1);
             }
             100% {
                 transform: translateX(-100px) scaleX(-1);
             }
         }
 
+        /* Turtle Design - Top View */
         .turtle {
             position: relative;
             width: 100px;
-            height: 80px;
-        }
-
-        /* Head */
-        .head {
-            position: absolute;
-            top: 20px;
-            left: -20px;
-            width: 30px;
-            height: 30px;
-            background: #a8d08d;
-            border-radius: 50%;
-        }
-
-        .head::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 10px;
-            width: 6px;
-            height: 6px;
-            background: black;
-            border-radius: 50%;
-        }
-
-        .head::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 8px;
-            width: 14px;
-            height: 5px;
-            background: black;
-            border-radius: 50%;
+            height: 100px;
         }
 
         /* Shell */
         .shell {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            width: 60px;
-            height: 50px;
             background: #388e3c;
             border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            box-shadow: inset 0 0 5px #2e7d32;
         }
 
         .shell::before {
             content: '';
             position: absolute;
             top: 15px;
-            left: 10px;
-            width: 40px;
-            height: 20px;
+            left: 15px;
+            width: 50px;
+            height: 50px;
             background: #4caf50;
+            border-radius: 50%;
+        }
+
+        /* Head */
+        .head {
+            position: absolute;
+            top: -20px;
+            left: 35px;
+            width: 30px;
+            height: 30px;
+            background: #a8d08d;
+            border-radius: 50%;
+        }
+
+        .head::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 8px;
+            width: 5px;
+            height: 5px;
+            background: black;
             border-radius: 50%;
         }
 
@@ -172,13 +161,13 @@ CARD_TEMPLATE = """
         }
 
         .leg.front-left {
-            top: 15px;
-            left: 10px;
+            top: 20px;
+            left: 5px;
         }
 
         .leg.front-right {
-            top: 15px;
-            right: 10px;
+            top: 20px;
+            right: 5px;
         }
 
         .leg.back-left {
@@ -190,6 +179,17 @@ CARD_TEMPLATE = """
             bottom: 5px;
             right: 10px;
         }
+
+        /* Tail */
+        .tail {
+            position: absolute;
+            bottom: 0;
+            right: 30px;
+            width: 10px;
+            height: 10px;
+            background: #a8d08d;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
@@ -197,7 +197,6 @@ CARD_TEMPLATE = """
         <div class="bubbly-text">Feel better soon Shiho!</div>
         <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
     </div>
-    <!-- Turtle -->
     <div class="turtle-container">
         <div class="turtle">
             <div class="head"></div>
@@ -206,6 +205,7 @@ CARD_TEMPLATE = """
             <div class="leg front-right"></div>
             <div class="leg back-left"></div>
             <div class="leg back-right"></div>
+            <div class="tail"></div>
         </div>
     </div>
 </body>
