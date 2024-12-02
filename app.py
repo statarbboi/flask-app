@@ -8,7 +8,7 @@ CARD_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Well Soon</title>
+    <title>Feel Better Soon</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
@@ -42,47 +42,52 @@ CARD_TEMPLATE = """
             position: relative;
         }
 
-        .bubbly-text {
+        h1 {
             font-size: 2.5rem;
-            text-align: center;
+            color: #ff69b4;
             margin-bottom: 20px;
-            animation: colorChange 4s infinite, bubbleBounce 3s infinite;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px #ffb6c1, 0 0 20px #ff69b4;
         }
 
-        /* Change color for the entire message */
-        @keyframes colorChange {
-            0% { color: #ff69b4; }
-            25% { color: #ffa500; }
-            50% { color: #1e90ff; }
-            75% { color: #32cd32; }
-            100% { color: #ff69b4; }
+        p {
+            font-size: 1.2rem;
+            color: #333;
         }
 
-        /* Add bubbly bounce effect */
-        @keyframes bubbleBounce {
-            0%, 100% {
-                transform: scale(1);
+        /* Turtle Animation */
+        .turtle {
+            position: absolute;
+            bottom: 20px;
+            width: 80px;
+            height: auto;
+            animation: moveTurtle 10s linear infinite;
+        }
+
+        @keyframes moveTurtle {
+            0% {
+                left: -100px;
+                transform: scaleX(1); /* Face right */
             }
             50% {
-                transform: scale(1.1);
+                left: 100vw;
+                transform: scaleX(1); /* Face right */
             }
-        }
-
-        img {
-            width: 200px;
-            height: auto;
-            margin: 20px auto;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            51% {
+                transform: scaleX(-1); /* Face left */
+            }
+            100% {
+                left: -100px;
+                transform: scaleX(-1); /* Face left */
+            }
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="bubbly-text">Feel better soon Shiho!</div>
-        <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
+        <h1>Feel better soon, Shiho!</h1>
+        <p>Just like this turtle, take your time and keep going!</p>
     </div>
+    <!-- Turtle Image -->
+    <img class="turtle" src="https://i.postimg.cc/LsMyt9DL/cute-turtle.png" alt="Cute Turtle">
 </body>
 </html>
 """
