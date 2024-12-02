@@ -24,30 +24,58 @@ CARD_TEMPLATE = """
             position: relative;
         }
 
-        /* Google Dinosaur Background */
+        /* Moving desert background */
         .background {
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://i.imgur.com/XOckS1I.png') repeat-x;
-            animation: moveBackground 5s linear infinite;
+            width: 200%;
+            height: 100px;
+            background: linear-gradient(to right, #ddd 30%, #bbb 70%);
+            animation: moveBackground 3s linear infinite;
         }
 
         @keyframes moveBackground {
-            0% { background-position: 0 0; }
-            100% { background-position: -1200px 0; }
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
 
+        /* Dinosaur character */
         .dino {
             position: absolute;
-            bottom: 10px;
-            left: 50px;
-            width: 100px;
-            height: auto;
+            bottom: 100px;
+            left: 100px;
+            width: 50px;
+            height: 50px;
+            background-color: black;
+            border-radius: 5px;
+            animation: dinoRun 0.2s steps(2) infinite;
         }
 
+        @keyframes dinoRun {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Cactus obstacles */
+        .cactus {
+            position: absolute;
+            bottom: 100px;
+            left: 80%;
+            width: 20px;
+            height: 50px;
+            background-color: green;
+            border-radius: 3px;
+            animation: moveCactus 3s linear infinite;
+        }
+
+        @keyframes moveCactus {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+
+        /* Card in the center */
         .card {
             z-index: 10;
             background-color: rgba(255, 255, 255, 0.9);
@@ -56,6 +84,7 @@ CARD_TEMPLATE = """
             padding: 20px;
             text-align: center;
             max-width: 500px;
+            position: relative;
         }
 
         h1 {
@@ -64,7 +93,6 @@ CARD_TEMPLATE = """
             margin-bottom: 20px;
             animation: bubbleText 4s infinite;
             font-weight: bold;
-            opacity: 0;
         }
 
         @keyframes bubbleText {
@@ -93,7 +121,8 @@ CARD_TEMPLATE = """
 </head>
 <body>
     <div class="background"></div>
-    <img class="dino" src="https://i.imgur.com/OVWHeY0.png" alt="Dino">
+    <div class="dino"></div>
+    <div class="cactus"></div>
     <div class="card">
         <h1>Get better soon Shiho!!</h1>
         <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
@@ -108,4 +137,5 @@ def card():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
