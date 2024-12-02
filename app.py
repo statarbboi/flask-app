@@ -8,7 +8,7 @@ CARD_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feel Better Soon</title>
+    <title>Get Well Soon</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
@@ -42,23 +42,51 @@ CARD_TEMPLATE = """
             position: relative;
         }
 
-        h1 {
+        .bubbly-text {
             font-size: 2.5rem;
-            color: #ff69b4;
+            text-align: center;
             margin-bottom: 20px;
+            animation: colorChange 4s infinite, bubbleBounce 3s infinite;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px #ffb6c1, 0 0 20px #ff69b4;
         }
 
-        p {
-            font-size: 1.2rem;
-            color: #333;
+        /* Change color for the entire message */
+        @keyframes colorChange {
+            0% { color: #ff69b4; }
+            25% { color: #ffa500; }
+            50% { color: #1e90ff; }
+            75% { color: #32cd32; }
+            100% { color: #ff69b4; }
         }
 
-        /* Turtle Animation */
+        /* Add bubbly bounce effect */
+        @keyframes bubbleBounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        img {
+            width: 200px;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Turtle Styles */
         .turtle {
             position: absolute;
-            bottom: 20px;
+            bottom: 10px;
+            left: -100px;
             width: 80px;
-            height: auto;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             animation: moveTurtle 10s linear infinite;
         }
 
@@ -79,15 +107,64 @@ CARD_TEMPLATE = """
                 transform: scaleX(-1); /* Face left */
             }
         }
+
+        .shell {
+            background: #388e3c;
+            width: 50px;
+            height: 35px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .shell::before {
+            content: '';
+            background: #4caf50;
+            width: 40px;
+            height: 20px;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: 5px;
+        }
+
+        .head, .leg {
+            background: #6d4c41;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .head {
+            top: 5px;
+            left: -15px;
+        }
+
+        .leg {
+            bottom: -10px;
+        }
+
+        .leg.front {
+            left: -10px;
+        }
+
+        .leg.back {
+            right: -10px;
+        }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>Feel better soon, Shiho!</h1>
-        <p>Just like this turtle, take your time and keep going!</p>
+        <div class="bubbly-text">Feel better soon Shiho!</div>
+        <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
     </div>
-    <!-- Turtle Image -->
-    <img class="turtle" src="https://i.postimg.cc/LsMyt9DL/cute-turtle.png" alt="Cute Turtle">
+    <!-- Turtle created with code -->
+    <div class="turtle">
+        <div class="shell"></div>
+        <div class="head"></div>
+        <div class="leg front"></div>
+        <div class="leg back"></div>
+    </div>
 </body>
 </html>
 """
@@ -98,6 +175,5 @@ def card():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 
