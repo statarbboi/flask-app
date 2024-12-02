@@ -10,10 +10,10 @@ CARD_TEMPLATE = """
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Well Soon</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
         body {
-            font-family: 'Comic Neue', cursive, sans-serif;
+            font-family: 'Fredoka One', cursive, sans-serif;
             margin: 0;
             overflow: hidden;
             display: flex;
@@ -42,35 +42,21 @@ CARD_TEMPLATE = """
             position: relative;
         }
 
-        h1 {
+        .bubbly-text {
             font-size: 2.5rem;
             color: #ff69b4;
             margin-bottom: 20px;
+            animation: bubbleBounce 3s infinite;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px #ffb6c1, 0 0 20px #ff69b4;
         }
 
-        .typewriter {
-            font-size: 1.8rem;
-            color: #ff69b4;
-            font-weight: bold;
-            border-right: 2px solid #ff69b4;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-            animation: typing 4s steps(30, end), blink 0.5s step-end infinite alternate, erase 2s 4s steps(30, end) infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        @keyframes erase {
-            from { width: 100%; }
-            to { width: 0; }
+        @keyframes bubbleBounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         img {
@@ -84,8 +70,7 @@ CARD_TEMPLATE = """
 </head>
 <body>
     <div class="card">
-        <h1>Get Well Soon Card</h1>
-        <div class="typewriter">I hope you feel better soon Shiho!!!!!</div>
+        <div class="bubbly-text">I hope you feel better soon Shiho!!!!!</div>
         <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
     </div>
 </body>
@@ -98,5 +83,6 @@ def card():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
