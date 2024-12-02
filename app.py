@@ -1,8 +1,145 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 
 app = Flask(__name__)
 
-CARD_TEMPLATE = """
+# Landing page with the turtle
+LANDING_PAGE_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap the Turtle</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        body {
+            font-family: 'Fredoka One', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7, #ff758c);
+            background-size: 400% 400%;
+            animation: gradientAnimation 6s infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .turtle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            cursor: pointer;
+        }
+
+        /* Turtle - Top View */
+        .shell {
+            background: #388e3c;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            box-shadow: inset 0 0 5px #2e7d32;
+        }
+
+        .shell-markings {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: 3px solid black;
+            border-radius: 50%;
+        }
+
+        .head {
+            position: absolute;
+            top: -10px;
+            left: 45px;
+            width: 30px;
+            height: 30px;
+            background: #a8d08d;
+            border-radius: 50%;
+        }
+
+        .head::before, .head::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            background: black;
+            border-radius: 50%;
+        }
+
+        .head::before {
+            left: 6px;
+        }
+
+        .head::after {
+            left: 18px;
+        }
+
+        .leg {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #a8d08d;
+            border-radius: 50%;
+        }
+
+        .leg.front-left { top: 30px; left: 10px; }
+        .leg.front-right { top: 30px; right: 10px; }
+        .leg.back-left { bottom: 10px; left: 20px; }
+        .leg.back-right { bottom: 10px; right: 20px; }
+
+        .tail {
+            position: absolute;
+            bottom: 0;
+            right: 40px;
+            width: 10px;
+            height: 10px;
+            background: #a8d08d;
+            border-radius: 50%;
+        }
+
+        .instruction {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #333;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="turtle" onclick="window.location.href='/message'">
+        <div class="head"></div>
+        <div class="shell">
+            <div class="shell-markings"></div>
+        </div>
+        <div class="leg front-left"></div>
+        <div class="leg front-right"></div>
+        <div class="leg back-left"></div>
+        <div class="leg back-right"></div>
+        <div class="tail"></div>
+    </div>
+    <div class="instruction">Tap on the turtle to reveal the message</div>
+</body>
+</html>
+"""
+
+# Message page
+MESSAGE_PAGE_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +156,7 @@ CARD_TEMPLATE = """
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             background: linear-gradient(135deg, #ffdde1, #ee9ca7, #ff758c);
             background-size: 400% 400%;
@@ -29,17 +167,6 @@ CARD_TEMPLATE = """
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-
-        .card {
-            z-index: 10;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            text-align: center;
-            max-width: 600px;
-            position: relative;
         }
 
         .bubbly-text {
@@ -74,171 +201,22 @@ CARD_TEMPLATE = """
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
-        /* Turtle Animation */
-        .turtle-container {
-            position: absolute;
-            bottom: 10px;
-            width: 100px;
-            height: 100px;
-            animation: moveTurtle 10s linear infinite;
-        }
-
-        @keyframes moveTurtle {
-            0% {
-                transform: translateX(-100px) scaleX(1); /* Moving left to right */
-            }
-            50% {
-                transform: translateX(100vw) scaleX(1);
-            }
-            51% {
-                transform: translateX(100vw) scaleX(-1); /* Flipping direction */
-            }
-            100% {
-                transform: translateX(-100px) scaleX(-1);
-            }
-        }
-
-        /* Turtle Design - Top View */
-        .turtle {
-            position: relative;
-            width: 100px;
-            height: 100px;
-        }
-
-        /* Shell */
-        .shell {
-            background: #388e3c;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            box-shadow: inset 0 0 5px #2e7d32;
-        }
-
-        .shell::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 50px;
-            height: 50px;
-            background: #4caf50;
-            border-radius: 50%;
-        }
-
-        .shell-markings {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            width: 30px;
-            height: 30px;
-            background: transparent;
-            border: 3px solid black;
-            border-radius: 50%;
-        }
-
-        /* Head */
-        .head {
-            position: absolute;
-            top: -20px;
-            left: 35px;
-            width: 30px;
-            height: 30px;
-            background: #a8d08d;
-            border-radius: 50%;
-        }
-
-        .head::before {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 10px;
-            width: 5px;
-            height: 5px;
-            background: black;
-            border-radius: 50%;
-        }
-
-        .head::after {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 18px;
-            width: 5px;
-            height: 5px;
-            background: black;
-            border-radius: 50%;
-        }
-
-        /* Legs */
-        .leg {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #a8d08d;
-            border-radius: 50%;
-        }
-
-        .leg.front-left {
-            top: 20px;
-            left: 5px;
-        }
-
-        .leg.front-right {
-            top: 20px;
-            right: 5px;
-        }
-
-        .leg.back-left {
-            bottom: 5px;
-            left: 10px;
-        }
-
-        .leg.back-right {
-            bottom: 5px;
-            right: 10px;
-        }
-
-        /* Tail */
-        .tail {
-            position: absolute;
-            bottom: 0;
-            right: 30px;
-            width: 10px;
-            height: 10px;
-            background: #a8d08d;
-            border-radius: 50%;
-        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="bubbly-text">Feel better soon Shiho!</div>
-        <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
-    </div>
-    <div class="turtle-container">
-        <div class="turtle">
-            <div class="head"></div>
-            <div class="shell">
-                <div class="shell-markings"></div>
-            </div>
-            <div class="leg front-left"></div>
-            <div class="leg front-right"></div>
-            <div class="leg back-left"></div>
-            <div class="leg back-right"></div>
-            <div class="tail"></div>
-        </div>
-    </div>
+    <div class="bubbly-text">Feel better soon Shiho!</div>
+    <img src="https://media.giphy.com/media/ZyoecFrXpqKwDkoCW0/giphy.gif?cid=ecf05e4794e1b65jx41ot7hzakdv3bgskior6ngth5st322x&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Feel Better Soon">
 </body>
 </html>
 """
 
 @app.route('/')
-def card():
-    return CARD_TEMPLATE
+def landing_page():
+    return LANDING_PAGE_TEMPLATE
+
+@app.route('/message')
+def message_page():
+    return MESSAGE_PAGE_TEMPLATE
 
 if __name__ == '__main__':
     app.run(debug=True)
