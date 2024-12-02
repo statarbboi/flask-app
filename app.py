@@ -8,7 +8,7 @@ CARD_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Well Soon</title>
+    <title>Feel Better Soon</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
@@ -86,13 +86,13 @@ CARD_TEMPLATE = """
 
         @keyframes moveTurtle {
             0% {
-                transform: translateX(-100px) scaleX(1);
+                transform: translateX(-100px) scaleX(1); /* Moving left to right */
             }
             50% {
                 transform: translateX(100vw) scaleX(1);
             }
             51% {
-                transform: translateX(100vw) scaleX(-1);
+                transform: translateX(100vw) scaleX(-1); /* Flipping direction */
             }
             100% {
                 transform: translateX(-100px) scaleX(-1);
@@ -129,6 +129,17 @@ CARD_TEMPLATE = """
             border-radius: 50%;
         }
 
+        .shell-markings {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: 3px solid black;
+            border-radius: 50%;
+        }
+
         /* Head */
         .head {
             position: absolute;
@@ -140,11 +151,22 @@ CARD_TEMPLATE = """
             border-radius: 50%;
         }
 
+        .head::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 10px;
+            width: 5px;
+            height: 5px;
+            background: black;
+            border-radius: 50%;
+        }
+
         .head::after {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 8px;
+            top: 6px;
+            left: 18px;
             width: 5px;
             height: 5px;
             background: black;
@@ -200,7 +222,9 @@ CARD_TEMPLATE = """
     <div class="turtle-container">
         <div class="turtle">
             <div class="head"></div>
-            <div class="shell"></div>
+            <div class="shell">
+                <div class="shell-markings"></div>
+            </div>
             <div class="leg front-left"></div>
             <div class="leg front-right"></div>
             <div class="leg back-left"></div>
@@ -218,5 +242,3 @@ def card():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
